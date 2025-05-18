@@ -1,12 +1,23 @@
-import React, {useState} from 'react';
-import {TablePagination} from "@mui/material";
-import userData from "./UserTable.tsx"
+import React from 'react';
+import { TablePagination } from "@mui/material";
 
-const TableUsersPagination = () => {
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+type Props = {
+    page: number;
+    rowsPerPage: number;
+    setPage: (page: number) => void;
+    setRowsPerPage: (rows: number) => void;
+    count: number;
+};
 
-    const handleChangePage = (event: unknown, newPage: number) => {
+const TableUsersPagination = ({
+    page,
+    rowsPerPage,
+    setPage,
+    setRowsPerPage,
+    count
+    }: Props) => {
+
+    const handleChangePage = (_event: unknown, newPage: number) => {
         setPage(newPage);
     };
 
@@ -14,10 +25,11 @@ const TableUsersPagination = () => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
     return (
         <TablePagination
             component="div"
-            count={userData.length}
+            count={count}
             page={page}
             onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}

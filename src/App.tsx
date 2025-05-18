@@ -1,6 +1,5 @@
-import UserTable from "./components/UserTable.tsx";
 import './App.css'
-
+import TableUsersWrapper from "./components/TableUsersWrapper.tsx";
 
 
 
@@ -9,7 +8,7 @@ function App() {
 
   return (
     <>
-      <UserTable/>
+      <TableUsersWrapper/>
     </>
   )
 }
