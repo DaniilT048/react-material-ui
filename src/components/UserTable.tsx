@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
-    Table, TableBody, TableCell, TableContainer, TableHead,
-    TableRow, Paper, TablePagination, CircularProgress
+    Table, TableBody, TableCell, TableContainer,
+    TableRow, Paper, CircularProgress
 } from '@mui/material';
+import TableHeadUsers from "./TableHeadUsers.tsx";
+
 
 type User = {
     id: number;
@@ -15,8 +17,7 @@ export default function EnhancedTableWithData() {
     const [userData, setUserData] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -32,14 +33,7 @@ export default function EnhancedTableWithData() {
         fetchUsers();
     }, []);
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
 
     if (loading) return <CircularProgress />;
     if (error) return <div>{error}</div>;
@@ -48,13 +42,7 @@ export default function EnhancedTableWithData() {
         <Paper>
             <TableContainer>
                 <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Username</TableCell>
-                        </TableRow>
-                    </TableHead>
+                    <TableHeadUsers/>
                     <TableBody>
                         {userData
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -68,14 +56,7 @@ export default function EnhancedTableWithData() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <TablePagination
-                component="div"
-                count={userData.length}
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+
         </Paper>
     );
 }

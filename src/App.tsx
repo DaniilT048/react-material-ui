@@ -1,5 +1,5 @@
 import UserTable from "./components/UserTable.tsx";
-
+import './App.css'
 
 
 
